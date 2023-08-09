@@ -1,12 +1,9 @@
 package br.edu.cesarschool.next.oo.entidade;
 
-import javax.print.attribute.standard.Media;
-
-import br.edu.cesarschool.next.oo.negocio.MediatorContaCorrente;
 
 public class ContaPoupanca extends ContaCorrente{
     private double percentualBonus;  
-    private MediatorContaCorrente MediatorContaCorrente;
+    
     public ContaPoupanca() {
         
     }
@@ -30,6 +27,11 @@ public class ContaPoupanca extends ContaCorrente{
     }
         //reuso toString da classe ContaCorrente
         public String toString() {
-            return getNomeCorrentista() + " , " + getNumero() + " , " + getSaldo() + " , " + getPercentualBonus();
+            return " \n " 
+            + "Nome: " + getNomeCorrentista() + "\n " 
+            + "Número da conta poupança: "+ getNumero() +  "\n" 
+            + " Saldo da conta poupança: " + getSaldo() + "\n" 
+            + " Percentual Bônus: " + getPercentualBonus() + "\n"  
+            + " Data de criação: " + super.getDataHoraCriacao();  
         }
 }

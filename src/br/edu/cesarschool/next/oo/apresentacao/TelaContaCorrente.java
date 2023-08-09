@@ -1,5 +1,6 @@
 package br.edu.cesarschool.next.oo.apresentacao;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -24,7 +25,8 @@ public class TelaContaCorrente {
 			System.out.println("3- Debitar conta");
             System.out.println("4- Buscar conta");
 			System.out.println("5- Gerar relatório geral de contas");
-			System.out.println("6- Sair");
+			System.out.println("6- Excluir conta");
+			System.out.println("7- Sair");
 			opcao = ENTRADA.nextInt();
 			if (opcao == 1) {
 				incluir();
@@ -36,8 +38,10 @@ public class TelaContaCorrente {
 				contaCorrenteBuscar();
 			} else if (opcao == 5) {
 				gerarRelatorioGeralContasCorrente();
+			} else if (opcao == 6) {
+				excluir();
 			}
-		} while(opcao != 6);
+		} while(opcao != 7);
 	}
 	
     private void incluir() {
@@ -64,7 +68,9 @@ public class TelaContaCorrente {
             String mensagem = mediatorConta.incluir(conta);
                
             if(mensagem == null) {
-                System.out.println("Conta poupança incluída com sucesso");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM, dd, yyyy HH:mm:ss");
+                String formattedDateTime = conta.getDataHoraCriacao().format(formatter);
+                System.out.println("Conta poupança incluída com sucesso. Data e hora: " + formattedDateTime + "\n");
             } else {
                 System.out.println(mensagem);
             }
@@ -74,7 +80,10 @@ public class TelaContaCorrente {
             String mensagem = mediatorConta.incluir(conta);
 
             if(mensagem == null) {
-                System.out.println("Conta incluída com sucesso");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM, dd, yyyy HH:mm:ss");
+                String formattedDateTime = conta.getDataHoraCriacao().format(formatter);
+                System.out.println("Conta corrente incluída com sucesso. Data e hora: " + formattedDateTime + "\n");
+				
             } else {
                 System.out.println(mensagem);
             }
@@ -127,6 +136,17 @@ public class TelaContaCorrente {
 		for (ContaCorrente conta : contas) {
 			System.out.println(conta);
 		}
+	}
+	private void excluir() {
+		String numero = null;
+		System.out.println("Digite o número da conta que deseja excluir: ");
+		numero = ENTRADA.next();
+		String mensagem = mediatorConta.excluir(numero);
+		if (mensagem == null) {
+			System.out.println("Conta excluída com sucesso!");
+		} else {
+			System.out.println(mensagem); 
+		}		
 	}
 }
 

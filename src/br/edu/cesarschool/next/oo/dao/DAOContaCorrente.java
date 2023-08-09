@@ -3,38 +3,32 @@ package br.edu.cesarschool.next.oo.dao;
 import java.io.Serializable;
 
 import br.edu.cesarschool.next.oo.entidade.ContaCorrente;
+import br.edu.cesarschool.next.oo.entidade.RegistroIdentificavel;
 import br.edu.cesarschool.next.oo.persistenciaobjetos.CadastroObjetos;
 
 public class DAOContaCorrente {
     private CadastroObjetos cadastro = new CadastroObjetos(ContaCorrente.class);
+	private DAOGenerico dao = new DAOGenerico(ContaCorrente.class);
     public boolean incluir(ContaCorrente conta) {
-		ContaCorrente contaBusca = buscar(conta.getNumero());
-		if (contaBusca != null) {
-			return false;
-		} else {
-			cadastro.incluir(conta, conta.getNumero());
-			return true;
-		}		
+		return dao.incluir(conta); //delega funçao para o DAO
 	}
 	public boolean alterar(ContaCorrente conta) {
-		ContaCorrente contaBusca = buscar(conta.getNumero());
-		if (contaBusca == null) {
-			return false;
-		} else {
-			cadastro.alterar(conta, conta.getNumero());
-			return true;
-		}		
+		return dao.alterar(conta); //delega funçao para o DAO
 	}
 	public ContaCorrente buscar(String numero) {
-		return (ContaCorrente)cadastro.buscar(numero);
+		return (ContaCorrente)dao.buscar(numero);
 	}
     //lis<ContaCorrente>buscarTodos
 	public ContaCorrente[] buscarTodos() {
-		Serializable[] rets = cadastro.buscarTodos(ContaCorrente.class);
+		RegistroIdentificavel[] rets = dao.buscarTodos();
 		ContaCorrente[] contas = new ContaCorrente[rets.length];
 		for(int i=0; i<rets.length; i++) {
 			contas[i] = (ContaCorrente)rets[i];
 		}
 		return contas;
+	}
+
+	public boolean excluir(String numero) {
+		return dao.excluir(numero);
 	}
 }

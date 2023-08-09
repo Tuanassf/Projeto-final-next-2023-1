@@ -2,7 +2,7 @@ package br.edu.cesarschool.next.oo.entidade;
 
 import java.io.Serializable;
 
-public class ContaCorrente implements Serializable{
+public class ContaCorrente extends RegistroIdentificavel{
     private static final long serialVersionUID = 1L;
     private String numero;
     private double saldo;
@@ -40,6 +40,14 @@ public class ContaCorrente implements Serializable{
     } 
     @Override
 	public String toString() {
-		return nomeCorrentista + " , " + numero + " , " + saldo;
+		return " \n " 
+        + "Nome: " + nomeCorrentista + " \n " 
+        + "Número conta corrente:" + numero + " \n "  
+        + "Saldo conta corrente:" + saldo + " \n " 
+        + "Data de criação: " + getDataHoraCriacao();
 	}
+    @Override
+    public String obterChave() {
+        return numero;
+    }
 }
